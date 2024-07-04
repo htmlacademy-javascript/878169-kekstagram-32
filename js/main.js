@@ -18,28 +18,56 @@ const messages = [
 
 const photoDescription = 'Описание фотографии';
 
+const MIN_AVATAR_NUMBER = 1;
+
+const MAX_AVATAR_NUMBER = 6;
+
+const MIN_COMMENTS_QUANTITY = 0;
+
+const MAX_COMMENTS_QUANTITY = 30;
+
+const MIN_POST_ID_QUANTITY = 1;
+
+const MAX_POST_ID_QUANTITY = 25;
+
+const MIN_POST_URL_QUANTITY = 1;
+
+const MAX_POST_URL_QUANTITY = 25;
+
+const MIN_LIKES_QUANTITY = 15;
+
+const MAX_LIKES_QUANTITY = 200;
+
+const POST_ARRAY_QUANTITY = 25;
+
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const usedIdNumbers = [];
-
 function generateUniqueId() {
-  let randomId;
+  const usedIdNumbers = [];
+  return function () {
+    let randomId;
 
-  do {
-    randomId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1;
-  } while (usedIdNumbers.includes(randomId));
+    do {
+      randomId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1;
+    } while (usedIdNumbers.includes(randomId));
 
-  usedIdNumbers.push(randomId);
-
-  return randomId;
+    usedIdNumbers.push(randomId);
+    return randomId;
+  };
 }
+
+const uniqueCommentId = generateUniqueId();
 
 function generateRandomAvatarUrl() {
-  const randomNumber = generateRandomNumber(1, 6);
-  return `img/avatar-${randomNumber}.svg`;
+  return function () {
+    const randomNumber = generateRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER);
+    return `img/avatar-${randomNumber}.svg`;
+  };
 }
+
+const randomAvatarUrl = generateRandomAvatarUrl();
 
 function getRandomString(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -48,15 +76,15 @@ function getRandomString(array) {
 
 function generateRandomComment() {
   return {
-    id: generateUniqueId(),
-    avatar: generateRandomAvatarUrl(),
+    id: uniqueCommentId(),
+    avatar: randomAvatarUrl(),
     message: getRandomString(messages),
     name: getRandomString(names),
   };
 }
 
 function generateArrayOfComments() {
-  const numberOfComments = generateRandomNumber(0, 30);
+  const numberOfComments = generateRandomNumber(MIN_COMMENTS_QUANTITY, MAX_COMMENTS_QUANTITY);
   const commentsArray = [];
 
   for (let i = 0; i < numberOfComments; i++) {
@@ -66,40 +94,30 @@ function generateArrayOfComments() {
   return commentsArray;
 }
 
-const usedPostIdNumbers = [];
+function generateUniqueNumbers() {
+  const usedNumbers = [];
+  return function (min, max) {
+    let randomNumber;
+    do {
+      randomNumber = generateRandomNumber(min, max);
+    } while (usedNumbers.includes(randomNumber));
 
-function generateUniquePostId() {
-  let randomPostId;
+    usedNumbers.push(randomNumber);
 
-  do {
-    randomPostId = generateRandomNumber(1, 25);
-  } while (usedPostIdNumbers.includes(randomPostId));
-
-  usedPostIdNumbers.push(randomPostId);
-
-  return randomPostId;
+    return randomNumber;
+  };
 }
 
-const usedPostUrl = [];
+const generateUniquePostId = generateUniqueNumbers();
 
-function generateRandomPostUrl() {
-  let randomPostUrl;
-
-  do {
-    randomPostUrl = generateRandomNumber(1, 25);
-  } while (usedPostUrl.includes(randomPostUrl));
-
-  usedPostUrl.push(randomPostUrl);
-
-  return `photos/${randomPostUrl}.jpg`;
-}
+const generateRandomPostUrl = generateUniqueNumbers();
 
 function generateRandomPost() {
   return {
-    id: generateUniquePostId(),
-    url: generateRandomPostUrl(),
+    id: generateUniquePostId(MIN_POST_ID_QUANTITY, MAX_POST_ID_QUANTITY),
+    url: `photos/${generateRandomPostUrl(MIN_POST_URL_QUANTITY, MAX_POST_URL_QUANTITY)}.jpg`,
     description: photoDescription,
-    likes: generateRandomNumber(15, 200),
+    likes: generateRandomNumber(MIN_LIKES_QUANTITY, MAX_LIKES_QUANTITY),
     comments: generateArrayOfComments(),
   };
 }
@@ -115,6 +133,5 @@ function generatePostsArray(n) {
 }
 
 //Создание итогового массива ниже
-// const randomPostArray = generatePostsArray(25);
-
-generatePostsArray(25); // вызвал функцию чтобы линтер не ругался
+//const randomPostArray = generatePostsArray(POST_ARRAY_QUANTITY);
+generatePostsArray(POST_ARRAY_QUANTITY); // вызвал функцию чтобы линтер не ругался
