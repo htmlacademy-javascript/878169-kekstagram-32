@@ -28,3 +28,20 @@ function extractDigitsFromString(input) {
 }
 
 extractDigitsFromString('2023 год');
+
+function meetingBeOnTimeCheck(startTime, endTime, meetingStart, meetingDuration) {
+  const startMinutes = timeToMinutes(startTime);
+  const endMinutes = timeToMinutes(endTime);
+  const meetingStartMinutes = timeToMinutes(meetingStart);
+
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return meetingEndMinutes <= endMinutes && meetingStartMinutes >= startMinutes;
+}
+
+function timeToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
+meetingBeOnTimeCheck('08:00', '17:30', '14:00', 90);
