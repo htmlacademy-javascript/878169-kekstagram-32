@@ -1,3 +1,4 @@
-import {generatePostsArray} from './data.js';
+import {generatedPosts} from './data.js';
+import {generateThumbnails} from './thumbnails.js';
 
-generatePostsArray(25);
+generateThumbnails(generatedPosts());

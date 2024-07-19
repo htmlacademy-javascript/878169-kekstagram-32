@@ -45,6 +45,8 @@ const MIN_LIKES_QUANTITY = 15;
 
 const MAX_LIKES_QUANTITY = 200;
 
+const POSTS_QUANTITY = 25;
+
 const uniqueCommentId = generateUniqueId();
 
 function generateRandomAvatarUrl() {
@@ -100,4 +102,8 @@ function generatePostsArray(n) {
   return postsArray;
 }
 
-export {generatePostsArray};
+const generatedPosts = function() {
+  return generatePostsArray(POSTS_QUANTITY);
+};
+
+export {generatedPosts};
