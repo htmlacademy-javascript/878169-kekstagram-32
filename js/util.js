@@ -35,9 +35,12 @@ function generateUniqueNumbers() {
   };
 }
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 export {
   generateRandomNumber,
   generateUniqueId,
   getRandomString,
-  generateUniqueNumbers
+  generateUniqueNumbers,
+  isEscapeKey
 };
