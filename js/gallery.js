@@ -8,7 +8,7 @@ const renderGallery = (pictures) => {
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
     if (!thumbnail) {
       return;
-    };
+    }
 
     evt.preventDefault();
     const picture = pictures.find(
