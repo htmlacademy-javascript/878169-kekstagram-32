@@ -1,4 +1,4 @@
-import {generatedPosts} from './data.js';
-import {generateThumbnails} from './thumbnails.js';
+import {getPictures} from './data.js';
+import {renderGallery} from './gallery.js';
 
-generateThumbnails(generatedPosts());
+renderGallery(getPictures());
