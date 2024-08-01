@@ -1,18 +1,14 @@
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const ALERT_SHOW_TIME = 5000;
 
-const getRandomArrayElement = (arr) => arr[getRandomInteger(0, arr.length - 1)];
+const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 
-const createIdGenerator = () => {
-  let numberId = 0;
+const showAlert = () => {
+  const dataErrorElement = dataErrorTemplate.cloneNode(true);
+  document.body.append(dataErrorElement);
 
-  return () => {
-    numberId += 1;
-    return numberId;
-  };
+  setTimeout(() => {
+    dataErrorElement.remove();
+  }, ALERT_SHOW_TIME);
 };
 
-export {
-  getRandomInteger,
-  getRandomArrayElement,
-  createIdGenerator,
-};
+export {showAlert};
