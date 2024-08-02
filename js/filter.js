@@ -21,23 +21,26 @@ const getFilteredPictures = () => {
     case Filter.DISCUSSED:
       return [...pictures].sort(sortByComments);
     default:
-      return [...pictures];
+      return pictures;
   }
+};
+
+const updateActiveFilterButton = (clickedButton) => {
+  const activeButton = filterElement.querySelector('.img-filters__button--active');
+  if (activeButton) {
+    activeButton.classList.remove('img-filters__button--active');
+  }
+  clickedButton.classList.add('img-filters__button--active');
 };
 
 const setOnFilterClick = (callback) => {
   filterElement.addEventListener('click', (evt) => {
-    if (!evt.target.classList.contains('img-filters__button')) {
+    const clickedButton = evt.target.closest('.img-filters__button');
+    if (!clickedButton || clickedButton.id === currentFilter) {
       return;
     }
 
-    const clickedButton = evt.target;
-    if (clickedButton.id === currentFilter) {
-      return;
-    }
-
-    filterElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    clickedButton.classList.add('img-filters__button--active');
+    updateActiveFilterButton(clickedButton);
     currentFilter = clickedButton.id;
     callback(getFilteredPictures());
   });
@@ -45,8 +48,8 @@ const setOnFilterClick = (callback) => {
 
 const init = (loadedPictures, callback) => {
   filterElement.classList.remove('img-filters--inactive');
-  pictures = [...loadedPictures];
+  pictures = loadedPictures.slice();
   setOnFilterClick(callback);
 };
 
-export {init, getFilteredPictures};
+export { init, getFilteredPictures };
