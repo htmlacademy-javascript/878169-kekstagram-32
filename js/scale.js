@@ -10,8 +10,8 @@ const scaleInputElement = modalElement.querySelector('.scale__control--value');
 const imageElement = modalElement.querySelector('.img-upload__preview img');
 
 const scaleImage = (value) => {
-  imageElement.style.transform = `scale(${value / 100})`; // Исправили синтаксис шаблонной строки
-  scaleInputElement.value = `${value}%`; // Исправили синтаксис шаблонной строки
+  imageElement.style.transform = `scale(${value / 100})`;
+  scaleInputElement.value = `${value}%`;
 };
 
 const updateScale = (newScale) => {
