@@ -12,14 +12,19 @@ const onContainerClick = (evt) => {
   }
 
   evt.preventDefault();
-  const picture = pictures.find((item) => item.id === +thumbnail.dataset.thummbnailId);
-  showBigPicture(picture);
+  const picture = pictures.find((item) => item.id === +thumbnail.dataset.thumbnailId);
+  if (picture) {
+    showBigPicture(picture);
+  }
 };
 
 const renderGallery = (currentPictures) => {
   pictures = currentPictures;
   generateThumbnails(pictures, container);
-  container.addEventListener('click', onContainerClick);
+
+  if (container) {
+    container.addEventListener('click', onContainerClick);
+  }
 };
 
 export {renderGallery};

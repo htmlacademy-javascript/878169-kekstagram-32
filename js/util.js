@@ -1,3 +1,5 @@
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const ALERT_SHOW_TIME = 5000;
 
 const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
@@ -19,4 +21,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {showAlert, debounce};
+export {isEscapeKey, showAlert, debounce};
