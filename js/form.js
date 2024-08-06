@@ -1,3 +1,4 @@
+import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
 import {
   init as initEffect,
@@ -83,7 +84,7 @@ const hasUniqueTags = (value) => {
 };
 
 function onDocumentKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageShown()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageShown()) {
     evt.preventDefault();
     hideModal();
   }

@@ -1,3 +1,5 @@
+import {isEscapeKey} from './util.js';
+
 const COMMENTS_PER_PORTION = 5;
 const bigPictureElement = document.querySelector('.big-picture');
 const commentShownCountElement = bigPictureElement.querySelector('.social__comment-shown-count');
@@ -51,7 +53,7 @@ const hideBigPicture = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideBigPicture();
   }
